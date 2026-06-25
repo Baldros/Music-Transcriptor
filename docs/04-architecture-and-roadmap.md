@@ -47,6 +47,8 @@ NoteEvent
 
 Motivo: cada modelo retorna coisas diferentes. Basic Pitch retorna note events/MIDI; MT3 retorna eventos multi-track; modelos de guitarra podem retornar string/fret; separadores retornam audio. A representacao interna desacopla tudo.
 
+O contrato formal entre a camada de transcricao/limpeza simbolica e o writer `.tg` esta detalhado em [05-layer2-layer3-melody-contract.md](05-layer2-layer3-melody-contract.md). Esse contrato e mais rigido que a lista simples de `NoteEvent`: ele exige compassos, duracoes quantizadas, pausas explicitas e string/fret para tracks de cordas com trastes.
+
 ## MVP recomendado
 
 ### MVP 0 - Provar escrita .tg
