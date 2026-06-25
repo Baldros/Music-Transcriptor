@@ -1,0 +1,181 @@
+{
+  "contract": {
+    "name": "MelodyScoreContract",
+    "version": "0.1.0"
+  },
+  "producer": {
+    "name": "manual-example",
+    "version": "0.0.1"
+  },
+  "project": {
+    "title": "Example melody",
+    "artist": "",
+    "album": "",
+    "author": "",
+    "transcriber": "generated",
+    "comments": "",
+    "units_per_quarter": 720720,
+    "tempo_map": [
+      {
+        "measure": 1,
+        "bpm": 120,
+        "beat_unit": 4
+      }
+    ],
+    "time_signatures": [
+      {
+        "measure": 1,
+        "numerator": 4,
+        "denominator": 4
+      }
+    ],
+    "key_signatures": [
+      {
+        "measure": 1,
+        "value": 0
+      }
+    ]
+  },
+  "tracks": [
+    {
+      "id": "guitar_1",
+      "name": "Guitar",
+      "kind": "fretted-string",
+      "instrument": {
+        "gm_bank": 0,
+        "gm_program": 25,
+        "channel_name": "Steel String Acoustic Guitar"
+      },
+      "tuning": [
+        {
+          "string": 1,
+          "pitch_midi": 64
+        },
+        {
+          "string": 2,
+          "pitch_midi": 59
+        },
+        {
+          "string": 3,
+          "pitch_midi": 55
+        },
+        {
+          "string": 4,
+          "pitch_midi": 50
+        },
+        {
+          "string": 5,
+          "pitch_midi": 45
+        },
+        {
+          "string": 6,
+          "pitch_midi": 40
+        }
+      ],
+      "max_fret": 24,
+      "clef": "treble",
+      "measures": [
+        {
+          "number": 1,
+          "start_units": 0,
+          "duration_units": 2882880,
+          "events": [
+            {
+              "id": "m1_e1",
+              "offset_units": 0,
+              "duration": {
+                "value": 4,
+                "dots": 0,
+                "tuplet": {
+                  "enters": 1,
+                  "times": 1
+                },
+                "units": 720720
+              },
+              "notes": [
+                {
+                  "pitch_midi": 60,
+                  "string": 2,
+                  "fret": 1,
+                  "velocity": 90,
+                  "tied": false,
+                  "effects": []
+                }
+              ]
+            },
+            {
+              "id": "m1_e2",
+              "offset_units": 720720,
+              "duration": {
+                "value": 4,
+                "dots": 0,
+                "tuplet": {
+                  "enters": 1,
+                  "times": 1
+                },
+                "units": 720720
+              },
+              "notes": [
+                {
+                  "pitch_midi": 62,
+                  "string": 2,
+                  "fret": 3,
+                  "velocity": 90,
+                  "tied": false,
+                  "effects": []
+                }
+              ]
+            },
+            {
+              "id": "m1_e3",
+              "offset_units": 1441440,
+              "duration": {
+                "value": 4,
+                "dots": 0,
+                "tuplet": {
+                  "enters": 1,
+                  "times": 1
+                },
+                "units": 720720
+              },
+              "notes": [
+                {
+                  "pitch_midi": 64,
+                  "string": 1,
+                  "fret": 0,
+                  "velocity": 90,
+                  "tied": false,
+                  "effects": []
+                }
+              ]
+            },
+            {
+              "id": "m1_e4",
+              "offset_units": 2162160,
+              "duration": {
+                "value": 4,
+                "dots": 0,
+                "tuplet": {
+                  "enters": 1,
+                  "times": 1
+                },
+                "units": 720720
+              },
+              "notes": [
+                {
+                  "pitch_midi": 65,
+                  "string": 1,
+                  "fret": 1,
+                  "velocity": 90,
+                  "tied": false,
+                  "effects": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
