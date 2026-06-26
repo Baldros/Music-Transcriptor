@@ -8,9 +8,20 @@ version = "0.0.1"
 description = "Audio-to-symbolic-score experiments targeting TuxGuitar .tg output."
 requires-python = ">=3.11"
 
+[project.optional-dependencies]
+audio = [
+    "librosa>=0.11.0",
+    "numpy>=1.26",
+    "soundfile>=0.12",
+]
+torch = [
+    "torch>=2.6",
+    "torchaudio>=2.6",
+]
+
 [project.scripts]
+audio-to-tg = "music_project.audio_cli:main"
 melody-to-tg = "music_project.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
