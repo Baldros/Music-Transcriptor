@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music Project - Guia de Uso</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --text: #1f2933;
+      --muted: #5b6572;
+      --border: #d9dee6;
+      --accent: #0f6b5f;
+      --accent-soft: #e4f3f0;
+      --code-bg: #17202a;
+      --code-text: #edf2f7;
+      --warn-bg: #fff6db;
+      --warn-border: #f0c453;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header .wrap {
+      padding: 32px 0 24px;
+    }
+
+    main.wrap {
+      padding: 28px 0 48px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin: 34px 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin: 22px 0 8px;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      max-width: 840px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .status div,
+    section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .status div {
+      padding: 14px;
+    }
+
+    .status strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    section {
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    section h2:first-child {
+      margin-top: 0;
+    }
+
+    ul,
+    ol {
+      margin: 0 0 14px 22px;
+      padding: 0;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+    }
+
+    pre {
+      margin: 10px 0 16px;
+      padding: 14px;
+      overflow-x: auto;
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 6px;
+    }
+
+    pre code {
+      color: inherit;
+      font-size: 0.92rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 16px;
+      background: var(--panel);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      border: 1px solid var(--border);
+      padding: 10px;
+    }
+
+    th {
+      background: #eef1f5;
+    }
+
+    .note {
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 12px 14px;
+      margin: 12px 0 16px;
+    }
+
+    .warning {
+      border-left: 4px solid var(--warn-border);
+      background: var(--warn-bg);
+      padding: 12px 14px;
+      margin: 12px 0 16px;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 18px;
+      margin: 10px 0 0;
+    }
+
+    .toc a {
+      display: block;
+      padding: 8px 0;
+    }
+
+    footer {
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding: 18px 0 32px;
+    }
+
+    @media (max-width: 760px) {
+      .status,
+      .toc {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Music Project - Guia de Uso</h1>
+      <p class="subtitle">
+        Como usar o MVP atual para gerar arquivos <code>.tg</code> do TuxGuitar a partir
+        de um contrato JSON de melodia ou de um audio monofonico simples.
+      </p>
+
+      <div class="status" aria-label="Estado atual do sistema">
+        <div>
+          <strong>Funciona hoje</strong>
+          JSON de melodia para <code>.tg</code> e audio monofonico simples para <code>.tg</code>.
+        </div>
+        <div>
+          <strong>Entrada ideal</strong>
+          WAV limpo, uma unica melodia, sem acordes, com BPM conhecido.
+        </div>
+        <div>
+          <strong>Saida</strong>
+          Arquivo <code>.tg</code> abrivel no TuxGuitar e, opcionalmente, contrato JSON de debug.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>Indice</h2>
+      <nav class="toc" aria-label="Indice da pagina">
+        <a href="#visao-geral">Visao geral</a>
+        <a href="#pre-requisitos">Pre-requisitos</a>
+        <a href="#instalacao">Instalacao</a>
+        <a href="#teste-rapido">Teste rapido</a>
+        <a href="#audio-para-tg">Audio para .tg</a>
+        <a href="#json-para-tg">Contrato JSON para .tg</a>
+        <a href="#referencia-cli">Referencia da CLI</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+      </nav>
+    </section>
+
+    <section id="visao-geral">
+      <h2>Visao geral</h2>
+      <p>
+        O projeto esta organizado em tres camadas conceituais:
+      </p>
+      <ol>
+        <li>Audio de entrada.</li>
+        <li>Conversao para dados simbolicos de melodia, no formato <code>MelodyScoreContract</code>.</li>
+        <li>Escrita do arquivo <code>.tg</code> usado pelo TuxGuitar.</li>
+      </ol>
+      <p>
+        No MVP atual, a camada de audio aceita apenas melodias monofonicas. Isso quer dizer:
+        uma nota por vez, sem acordes e sem mistura de varios instrumentos. A separacao de
+        instrumentos e a transcricao polifonica ainda sao fases futuras.
+      </p>
+      <div class="warning">
+        <strong>Importante:</strong> este sistema ainda nao transcreve uma musica completa
+        arbitraria com bateria, baixo, voz, guitarra base e guitarra solo. Para testar agora,
+        use uma melodia isolada.
+      </div>
+    </section>
+
+    <section id="pre-requisitos">
+      <h2>Pre-requisitos</h2>
+      <ul>
+        <li>Windows com PowerShell.</li>
+        <li>Python 3.11 ou superior.</li>
+        <li>TuxGuitar instalado para abrir o arquivo <code>.tg</code> gerado.</li>
+        <li>Um audio monofonico limpo, preferencialmente <code>.wav</code>, para testar a camada de audio.</li>
+      </ul>
+      <p>
+        Os exemplos abaixo assumem que voce esta na raiz do repositorio:
+      </p>
+      <pre><code>cd E:\music-project</code></pre>
+    </section>
+
+    <section id="instalacao">
+      <h2>Instalacao</h2>
+
+      <h3>1. Criar ambiente virtual</h3>
+      <pre><code>py -3.11 -m venv .venv</code></pre>
+
+      <h3>2. Instalar o projeto com suporte de audio CPU</h3>
+      <pre><code>.\.venv\Scripts\python.exe -m pip install -e ".[audio]"</code></pre>
+
+      <p>
+        Essa instalacao habilita o backend <code>librosa-pyin</code>, que e o caminho baseline
+        ja validado para audio monofonico.
+      </p>
+
+      <h3>3. Opcional: instalar suporte PyTorch/torchaudio</h3>
+      <pre><code>.\.venv\Scripts\python.exe -m pip install -e ".[audio,torch]"</code></pre>
+
+      <p>
+        O backend <code>torchaudio</code> pode usar CUDA quando o PyTorch instalado reconhecer
+        a GPU. Se <code>torch.cuda.is_available()</code> retornar <code>False</code>, instale o wheel
+        correto pelo seletor oficial do PyTorch.
+      </p>
+      <pre><code>.\.venv\Scripts\python.exe -c "import torch; print(torch.cuda.is_available())"</code></pre>
+    </section>
+
+    <section id="teste-rapido">
+      <h2>Teste rapido</h2>
+      <p>
+        Para testar a escrita de <code>.tg</code> sem audio, use o contrato de exemplo que ja
+        existe no repositorio:
+      </p>
+      <pre><code>.\.venv\Scripts\melody-to-tg.exe examples\simple_melody_contract.json out\simple_from_contract.tg</code></pre>
+      <p>
+        Se funcionar, a CLI imprime o caminho do arquivo criado:
+      </p>
+      <pre><code>out\simple_from_contract.tg</code></pre>
+      <p>
+        Abra esse arquivo no TuxGuitar para verificar a partitura/tablatura.
+      </p>
+    </section>
+
+    <section id="audio-para-tg">
+      <h2>Audio para .tg</h2>
+      <p>
+        Use <code>audio-to-tg</code> quando voce tiver um arquivo de audio com uma melodia simples.
+        O BPM precisa ser informado manualmente nesta versao.
+      </p>
+
+      <h3>Comando recomendado para primeiro teste</h3>
+      <pre><code>.\.venv\Scripts\audio-to-tg.exe caminho\melodia.wav out\melodia.tg --bpm 120 --backend librosa-pyin --instrument guitar --contract-output out\melodia.contract.json</code></pre>
+
+      <p>O comando gera dois arquivos importantes:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Arquivo</th>
+            <th>Uso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>out\melodia.tg</code></td>
+            <td>Arquivo final para abrir no TuxGuitar.</td>
+          </tr>
+          <tr>
+            <td><code>out\melodia.contract.json</code></td>
+            <td>Representacao intermediaria para debug: notas detectadas, duracoes, cordas e casas.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Exemplo com baixo</h3>
+      <pre><code>.\.venv\Scripts\audio-to-tg.exe caminho\baixo.wav out\baixo.tg --bpm 90 --backend librosa-pyin --instrument bass --contract-output out\baixo.contract.json</code></pre>
+
+      <h3>Exemplo tentando torchaudio com CUDA</h3>
+      <pre><code>.\.venv\Scripts\audio-to-tg.exe caminho\melodia.wav out\melodia_cuda.tg --bpm 120 --backend torchaudio --device cuda --instrument guitar --contract-output out\melodia_cuda.contract.json</code></pre>
+
+      <div class="note">
+        Para o MVP, comece com <code>librosa-pyin</code>. O backend <code>torchaudio</code> e util
+        para experimentos com GPU, mas depende da instalacao correta de PyTorch/CUDA no ambiente.
+      </div>
+    </section>
+
+    <section id="json-para-tg">
+      <h2>Contrato JSON para .tg</h2>
+      <p>
+        Use <code>melody-to-tg</code> quando voce ja tiver a saida da camada 2, isto e, um arquivo
+        JSON no formato <code>MelodyScoreContract</code>.
+      </p>
+      <pre><code>.\.venv\Scripts\melody-to-tg.exe caminho\contrato.json out\saida.tg</code></pre>
+
+      <p>
+        Esse caminho e a forma mais estavel de testar a camada 3. Ele nao faz analise de audio;
+        apenas valida o contrato e escreve o arquivo <code>.tg</code>.
+      </p>
+
+      <h3>Contrato de exemplo</h3>
+      <p>
+        O arquivo <code>examples\simple_melody_contract.json</code> mostra a estrutura esperada.
+        A documentacao detalhada do contrato esta em
+        <code>docs\05-layer2-layer3-melody-contract.md</code>.
+      </p>
+    </section>
+
+    <section id="referencia-cli">
+      <h2>Referencia da CLI</h2>
+
+      <h3><code>audio-to-tg</code></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Argumento</th>
+            <th>Obrigatorio</th>
+            <th>Descricao</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>input</code></td>
+            <td>Sim</td>
+            <td>Caminho do audio de entrada.</td>
+          </tr>
+          <tr>
+            <td><code>output</code></td>
+            <td>Sim</td>
+            <td>Caminho do arquivo <code>.tg</code> de saida.</td>
+          </tr>
+          <tr>
+            <td><code>--bpm</code></td>
+            <td>Sim</td>
+            <td>Tempo da musica em batidas por minuto.</td>
+          </tr>
+          <tr>
+            <td><code>--backend</code></td>
+            <td>Nao</td>
+            <td><code>librosa-pyin</code> ou <code>torchaudio</code>. Padrao: <code>librosa-pyin</code>.</td>
+          </tr>
+          <tr>
+            <td><code>--device</code></td>
+            <td>Nao</td>
+            <td><code>auto</code>, <code>cpu</code> ou <code>cuda</code>. Usado pelo backend <code>torchaudio</code>.</td>
+          </tr>
+          <tr>
+            <td><code>--instrument</code></td>
+            <td>Nao</td>
+            <td><code>guitar</code> ou <code>bass</code>. Padrao: <code>guitar</code>.</td>
+          </tr>
+          <tr>
+            <td><code>--title</code></td>
+            <td>Nao</td>
+            <td>Titulo gravado no contrato e no arquivo de saida. Padrao: nome do arquivo de entrada.</td>
+          </tr>
+          <tr>
+            <td><code>--quantization</code></td>
+            <td>Nao</td>
+            <td>Grade ritmica usada para quantizar eventos. Valores: <code>4</code>, <code>8</code>, <code>16</code>, <code>32</code>, <code>64</code>. Padrao: <code>16</code>.</td>
+          </tr>
+          <tr>
+            <td><code>--sample-rate</code></td>
+            <td>Nao</td>
+            <td>Taxa de amostragem usada no processamento. Padrao: <code>22050</code>.</td>
+          </tr>
+          <tr>
+            <td><code>--fmin-midi</code></td>
+            <td>Nao</td>
+            <td>Menor nota MIDI esperada para rastreamento de pitch. Padrao: <code>40</code>.</td>
+          </tr>
+          <tr>
+            <td><code>--fmax-midi</code></td>
+            <td>Nao</td>
+            <td>Maior nota MIDI esperada para rastreamento de pitch. Padrao: <code>88</code>.</td>
+          </tr>
+          <tr>
+            <td><code>--contract-output</code></td>
+            <td>Nao</td>
+            <td>Caminho para salvar o JSON intermediario gerado a partir do audio.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3><code>melody-to-tg</code></h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Argumento</th>
+            <th>Obrigatorio</th>
+            <th>Descricao</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>input</code></td>
+            <td>Sim</td>
+            <td>Caminho do contrato JSON.</td>
+          </tr>
+          <tr>
+            <td><code>output</code></td>
+            <td>Sim</td>
+            <td>Caminho do arquivo <code>.tg</code> de saida.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Para ver a ajuda direto pela CLI:</p>
+      <pre><code>.\.venv\Scripts\audio-to-tg.exe --help
+.\.venv\Scripts\melody-to-tg.exe --help</code></pre>
+    </section>
+
+    <section id="validacao">
+      <h2>Validacao</h2>
+      <p>
+        Rode a suite de testes com:
+      </p>
+      <pre><code>.\.venv\Scripts\python.exe -m unittest discover -s tests</code></pre>
+      <p>
+        O resultado esperado e algo como:
+      </p>
+      <pre><code>Ran 13 tests
+
+OK</code></pre>
+    </section>
+
+    <section id="troubleshooting">
+      <h2>Troubleshooting</h2>
+
+      <h3><code>No module named music_project</code></h3>
+      <p>
+        O projeto nao foi instalado no ambiente atual. Rode:
+      </p>
+      <pre><code>.\.venv\Scripts\python.exe -m pip install -e ".[audio]"</code></pre>
+
+      <h3><code>librosa backend requires optional dependencies</code></h3>
+      <p>
+        As dependencias opcionais de audio nao foram instaladas. Use a instalacao com extra
+        <code>audio</code>:
+      </p>
+      <pre><code>.\.venv\Scripts\python.exe -m pip install -e ".[audio]"</code></pre>
+
+      <h3>O arquivo <code>.tg</code> saiu vazio ou com notas erradas</h3>
+      <ul>
+        <li>Confirme que o audio tem apenas uma melodia, uma nota por vez.</li>
+        <li>Confirme o BPM usado em <code>--bpm</code>.</li>
+        <li>Tente exportar o audio como WAV mono limpo.</li>
+        <li>Restrinja a faixa de pitch com <code>--fmin-midi</code> e <code>--fmax-midi</code>.</li>
+        <li>Gere <code>--contract-output</code> e inspecione as notas detectadas antes de abrir no TuxGuitar.</li>
+      </ul>
+
+      <h3>CUDA foi pedida, mas nao funciona</h3>
+      <p>
+        Verifique primeiro se o PyTorch reconhece a GPU:
+      </p>
+      <pre><code>.\.venv\Scripts\python.exe -c "import torch; print(torch.cuda.is_available())"</code></pre>
+      <p>
+        Se o resultado for <code>False</code>, o backend <code>torchaudio --device cuda</code> nao vai
+        funcionar nesse ambiente. Use <code>--backend librosa-pyin</code> ou instale o wheel CUDA
+        correto do PyTorch.
+      </p>
+    </section>
+
+    <section>
+      <h2>Limites atuais</h2>
+      <ul>
+        <li>Nao separa instrumentos de uma musica mixada.</li>
+        <li>Nao transcreve acordes nem polifonia.</li>
+        <li>Nao detecta BPM automaticamente.</li>
+        <li>Nao detecta bends, slides, vibrato, palm mute ou tecnicas especificas de guitarra.</li>
+        <li>O mapeamento string/fret usa uma heuristica simples, nao uma digitacao musical ideal.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        Documento de uso do MVP. Para detalhes de arquitetura e pesquisa, veja os demais arquivos em <code>docs\</code>.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

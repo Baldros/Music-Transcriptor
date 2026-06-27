@@ -24,6 +24,7 @@ O ponto 3 parece o mais controlavel: o TuxGuitar atual usa `.tg` como um arquivo
 - [04-architecture-and-roadmap.md](04-architecture-and-roadmap.md): arquitetura proposta, MVP e experimentos.
 - [05-layer2-layer3-melody-contract.md](05-layer2-layer3-melody-contract.md): contrato rigido entre dados musicais simbolicos e writer `.tg`.
 - [06-audio-to-contract-mvp.md](06-audio-to-contract-mvp.md): primeiro MVP de audio monofonico para contrato.
+- [usage.html](usage.html): guia pratico de uso do sistema, com instalacao, comandos CLI e troubleshooting.
 
 ## Decisoes iniciais recomendadas
 
